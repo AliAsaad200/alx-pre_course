@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -lan .*
+ls *[0-9]*
