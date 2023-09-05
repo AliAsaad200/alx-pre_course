@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -1 | cut -b 6-|grep ^[13579] |cut -f2
+ls -l | cut -b 6-|grep ^[13579] |cut -f2
