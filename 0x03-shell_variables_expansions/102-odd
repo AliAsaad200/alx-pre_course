@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -1 | paste -d'\n' - - | cut -b -6
+ls -1 | paste -d'\n' - - |grep ^[13579] |cut -b -8
