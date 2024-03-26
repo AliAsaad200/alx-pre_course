@@ -3,18 +3,17 @@
 
 # Check if all parameters are provided
 if [ $# -lt 4 ]; then
-  echo "Usage: /home/aliasaad/.ssh/id_rsa PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+  echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
   exit 1
 fi
 
-file_path=/home/aliasaad/.ssh/id_rsa
-server_ip=52.4.68.154
+file_path=/alx-system_engineering-devops/0x0C-webserver/somepage.html # Path to the file on the local machine
+server_ip=100.25.191.169
 username=ubuntu
-ssh_key=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCswb3j5JHo+LuuT1tuusT0I12vcnf8AaspdbMHI+oLd50qUAu+SX5IW1d0IpyZnrnQdZhc7vx/dsLmWzHmAYTXkTNJtZt3o53N3JgcJePV0husOofrk/XoqUKyLe5Aer517a989Z2fnTLayRYmn4qvTTLj3HAlEA0Ogn5zSHUUJz409wR1+osQDGpRJW8jZRqXSuhF5FVShPwWFttml6Y8w6s32QUE2w2cuSv512vWI2tBnfopX1LfEm3g/chsBtttYaw+kbVFwnQVq5zUno/RxCltLh7F3lMgsASC7H9VOlQQxY5jXB+dHEtOSa6AKCHhUIpm+OaN79Cd59m0oqFOBJoh4A48XaFg1CbI1+cGLqrOl9ZJBpfwf8UXCiR6okToWgS7fLMS2tZG/yet4NNwY4YvwsaUqZxQtFpH4FkDm//++sjuBvqxquWedAvayjITzTgCE07FDErtUbNWsKkZnCfI+G8Ak9dFQers+fljdUcUN7DwCsA7j9mS3rafew0 aliasaad@DESKTOP-HINKOLS
+ssh_key=/home/aliasaad/.ssh/id_rsa
 
 
 # Transfer the file using scp
-# shellcheck disable=SC2154
 scp -o StrictHostKeyChecking=no -i "$ssh_key" "$file_path" "$username@$server_ip:~/"
 
 exit 0
