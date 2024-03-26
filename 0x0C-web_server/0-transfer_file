@@ -3,7 +3,7 @@
 
 # Check if all parameters are provided
 if [ $# -lt 4 ]; then
-  echo "Usage: $0 PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+  echo "Usage: /home/aliasaad/.ssh/id_rsa PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
   exit 1
 fi
 
@@ -14,6 +14,7 @@ ssh_key=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCswb3j5JHo+LuuT1tuusT0I12vcnf8Aasp
 
 
 # Transfer the file using scp
+# shellcheck disable=SC2154
 scp -o StrictHostKeyChecking=no -i "$ssh_key" "$file_path" "$username@$server_ip:~/"
 
 exit 0
