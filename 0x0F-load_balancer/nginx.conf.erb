@@ -5,7 +5,7 @@ server {
     server_name _;
 
     # Custom HTTP header configuration
-    add_header X-Served-By "<%= @hostname %>";
+    add_header X-Served-By "<%= @persistent-hostname %>";
 
     # Additional configuration settings...
 }
