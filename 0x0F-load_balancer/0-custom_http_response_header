@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Configure Nginx to include a custom header in HTTP responses
+
+# Ensure script is run as root
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root" 
+    exit 1
+fi
+
+# Get the hostname
+var=$(hostname)
+
+# Update package repositories
+apt-get update -y
+
+# Install Nginx
+apt-get install nginx -y
+
+# Create index.html with a simple message
+echo "Hello World!" > /usr/share/nginx/html/index.html
+
+# Create custom 404 page
+echo "Ceci n'est pas une page" > /var/www/html/custom_404.html
+
+# Configure Nginx to include custom header
+nginx_config="/etc/nginx/sites-available/default"
+
+# Check if configuration file exists
+if [ ! -f "$nginx_config" ]; then
+    echo "Nginx configuration file not found: $nginx_config"
+    exit 1
+fi
+
+# Add custom error page and header configuration
+sed -i "/^server {/a \\tadd_header X-Served-By $var;" "$nginx_config"
+sed -i "s|^    error_page 404 /.*;|    error_page 404 /custom_404.html;|" "$nginx_config"
+sed -i "s|^    location / {|    location / {\n        return 301 \$scheme://www.google.com;|" "$nginx_config"
+
+# Restart Nginx to apply changes
+service nginx restart
